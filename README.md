@@ -29,3 +29,15 @@ grep human Viruses_RefSeq_and_neighbors_genome_data.tab > Human_Viruses_RefSeq_a
 # Cluster sequence into OTU 
 OTU_fasta_concatenation.pl Human_Viruses_RefSeq_and_neighbors_genome_data.tab
 ```
+
+
+## OTUs selection for temporal signal
+
+## OTUs phylogenetic trees inferece
+
+## Single Nuclotide Variant calling
+
+## Simulations 
+
+## Figure representation
+
