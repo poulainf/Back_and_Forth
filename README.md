@@ -16,4 +16,4 @@ Clean_Neighbor_Refseq_table.pl Human_Viruses_RefSeq_and_neighbors_genome_data.ta
 ```
 These commands will produce a file named Human_Viruses_RefSeq_and_neighbors_genome_data-cleaned.tsv. This file associates each full genome sequence of a human virus from the NCBI nucleotide database with a specific reference sequence.
 
-The cleaned table file can then be used to download FASTA and GenBank files using esearch from the Entrez Direct Utilities.
+The cleaned table file can then be used to download FASTA and GenBank files using `esearch` from the Entrez [Direct utilitiez](https://www.ncbi.nlm.nih.gov/books/NBK179288/).
