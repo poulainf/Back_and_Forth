@@ -1,4 +1,4 @@
-# Back_and_Forth
+# Virus Substitutions Collection Pipeline
 
 ## Generate Neighbor-to-RefSeq Sequence File 
 
