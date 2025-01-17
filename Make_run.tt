@@ -1,0 +1,7 @@
+#! /bin/bash
+mkdir -p [% threads %]_File
+cd [% threads %]_File
+
+while read line; do 
+	Analyse_iter_ancestor_matrix6.sh ../$line 100 ../Infos.txt >> File_log_suivie.trb;
+done < ../[% threads %] 

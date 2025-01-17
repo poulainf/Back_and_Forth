@@ -1,0 +1,64 @@
+#!/bin/bash
+#SBATCH --job-name=[% nick %] 
+#SBATCH --time=5-00:00:00
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=8
+#SBATCH --gres="gpu:1"
+#SBATCH --mem-per-cpu=8000
+#SBATCH --partition=gpu
+
+ml --quiet purge
+ml releases/2023a
+ml beagle-lib/4.0.1-GCC-12.3.0-CUDA-12.1.1
+
+export PATH=${PWD}/BEASTv1.10.4/bin:$PATH
+
+function killIfMatchFound () {
+	
+	# wait the main process to start
+	sleep 3
+	Files_ok="File_ok_[% nick %]"
+	
+	while true; do
+	  date > $Files_ok;
+		  
+		TYT="$( echo "$i" | sed -e s/"\.log"//)";
+		TEST=0;
+		./BEASTv1.10.4/bin/loganalyser [% name %].log |cut -f7|tail -n +19|grep -v "*"|grep -v "NaN"|grep -v "  "|grep -v "^$" | grep -P "\d+" > tmp_values_[% nick %].txt ;
+		
+		while IFS= read -r line; do
+		
+			NUMbers="$( printf "%.0f" $line )";
+			
+			if [[ "$NUMbers" -lt 200 ]]; then
+			
+				TEST=1;
+			fi;
+			
+		done < tmp_values_[% nick %].txt;
+		
+		if [[ $TEST -eq 0 ]]; then
+		
+			echo $i >> $Files_ok;
+			echo "On a un file OK date";
+			scancel ${SLURM_JOB_ID};
+		
+		fi;
+
+		sleep 3h;
+	  
+	done
+}
+
+# launch test in background
+killIfMatchFound output.log &
+
+# launch main computation process
+beast \
+       -threads ${SLURM_CPUS_PER_TASK} \
+       -beagle_SSE \
+       -beagle_GPU \
+       -beagle_double \
+       -overwrite [% name %].xml
+
+#end
