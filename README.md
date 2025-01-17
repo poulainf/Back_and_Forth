@@ -31,7 +31,6 @@ done
 
 # Cluster sequence into OTU
 Ref_Fasta_to_OTU.pl test.fasta test.gb test.tsv
-
 ```
 This step result on the production of large number of OTUs fasta files contening all the fasta sequences corresponding to a virus subspecies taxonomical scale. 
 
@@ -54,16 +53,16 @@ Requirements
 ```bash
 # Run split OTU
 for i in `ls *fasta`;do
-  OTU_split_and_temporal_signal_test.sh $i ;
-done
 
+  OTU_split_and_temporal_signal_test.sh $i ;
+
+done
 ```
 
 ## OTUs phylogenetic trees inference
-To perform BEAST1 phylogenetic tree inferences in an automated manner, XML files are automatically generated. Additionally, a Bash command is created for each OTU to facilitate execution of the package on a cluster within a Slurm environment.
+To perform `BEAST1` phylogenetic tree inferences in an automated manner, XML files are automatically generated. Additionally, a Bash command is created for each OTU to facilitate execution of the package on a cluster within a Slurm environment.
 
 ```bash
-
 for i in ` ls *_ALIGNED.fasta `; do
 
   beauty_date_constantpop_GTR+G+I.pl $i 1000000000000 100000;
@@ -78,16 +77,41 @@ for i in `ls *.xml | sed -e s/"_formated.xml"//`; do
   tpage --define name=$i --define nick=$id creat_run.tt > Submition_$i.sh;
 
 done
+```
+Burning values are determine by manual inspection by tracer package and report on `Burning.txt` file. 
+Next base on the `Burning.txt` file `file.trees` is burn and 500 trees are selected. 
 
+```bash
+# Run split OTU
+while read line; do
 
+    VAL1="$( echo $line | cut -f1 -d " " )";
+    VAL2="$( echo $line | cut -d " " -f2 )";
+    Reformatre_trees.sh $VAL1 $VAL2;
+
+done < burn
 ```
 
 ## Single Nuclotide Variant calling
-The resulting tree files are next burning for arround 5% of their trees based on a user inspection by Beagles 
+The substitution calling is managed by a suite of Bash and Perl scripts, executed through the `The_Run.sh` package. This script must be run in the same directory as the subs_selected.trees files, along with the required complementary scripts and files.
+
+- combine_matrixes.sh
+- Analyse_iter_ancestor_matrix6.sh
+- Make_a_combined_matrix_universal.pl 
+- extract_ancetre_seq_9.0.pl
+- extract_ancetre_seq_12.0.pl
+- Full_seq_length_line.txt
+- Infos.txt
+- Make_run.tt
+
+
+```bash
+# Run SNPs calling
+The_Run.sh
+```
+## Figure representation
+Figures are 
 
 ## Simulations 
 
 ## Non Bayesian Phylogenetic tree inference
-
-## Figure representation
-Figures are 
