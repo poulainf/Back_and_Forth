@@ -110,7 +110,22 @@ Substitution calling is managed by a suite of Bash and Perl scripts, executed us
 The_Run.sh
 ```
 ## Figure representation
+Comparison between Beast1 In-put and Out-put,  for proportion of Back-and-Forth and Cosine landscape values. 
 
 ## Simulations 
+### Back and Forth simulation :
+This pipeline aimed to compare the proportion of back-and-forth substitutions between a simulated fasta file generated based on a true phylogenetic trees inférence and the output of the beast1 inférence of this fasta file. The following commande allow the genration of a differante itération of fasta files with a défined proportion of Back-and-Forth substitutions in the input tree. 
+```bash
+./script_name.sh <TREE_file> <iter> <info_FILE> <Prop_info> <Full_seq_length_line.txt>
+```
+This commande requiered to be executed on the directory requiring the following files :
+
+- Tree file from beast
+- Full_seq_length_line.txt
+- Infos.txt
+
+### Substitution landcscape simulation :
+
+### Forced mirror effect landscape simulation:
 
 ## Non Bayesian Phylogenetic tree inference
