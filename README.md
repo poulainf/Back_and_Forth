@@ -109,8 +109,6 @@ Substitution calling is managed by a suite of Bash and Perl scripts, executed us
 # Run SNPs calling
 The_Run.sh
 ```
-## Figure representation
-Comparison between Beast1 In-put and Out-put,  for proportion of Back-and-Forth and Cosine landscape values. 
 
 ## Simulations 
 ### Back and Forth simulation :
@@ -124,8 +122,3 @@ This commande requiered to be executed on the directory requiring the following 
 - Full_seq_length_line.txt
 - Infos.txt
 
-### Substitution landcscape simulation :
-
-### Forced mirror effect landscape simulation:
-
-## Non Bayesian Phylogenetic tree inference
